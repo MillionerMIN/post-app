@@ -6,8 +6,20 @@ import PostStatusFilter from '../post-status-filter/post-status-filter';
 import SearchPanel from '../search-panel/search-panel';
 import './app.css';
 
+export type DataType = {
+   id: string
+   label: string
+   important: boolean
+}
 
 function App() {
+
+   const data: Array<DataType> = [
+      { id: 'hdfksj', label: 'Going to learns React', important: true },
+      { id: 'hdvsd', label: 'This is good', important: true },
+      { id: 'jkksdi', label: 'I am a break...', important: true },
+   ]
+
    return (
       <div className="app">
          <AppHeader />
@@ -16,7 +28,7 @@ function App() {
             <PostStatusFilter />
          </div>
          <div className="post-list">
-            <PostList />
+            <PostList props={data} />
             <PostAddForm />
          </div>
       </div>
