@@ -1,24 +1,31 @@
 import React from "react";
 import { DataType } from "../app/app";
 import PostListItem from "../posr-list-item/post-list-item";
+
+import { ListGroup } from 'reactstrap';
 import "./post-list.css";
 
-type PostListType = {
+export type PostListType = {
    props: Array<DataType>
+   onDelete: (id: number) => void
 }
 
 function PostList(props: PostListType) {
    const element = props.props.map((item) => {
-      return (<ul key={item.id} className="list-group-item">
-         <PostListItem label={item.label} important={item.important} />
-      </ul>
-      )
-   })
+      const { id, ...itemProps } = item;
+      return (<ul key={id} className="list-group-item">
+         <PostListItem
+            {...itemProps}
+            onDelete={() => {
+               props.onDelete(id);
+            }} />
+      </ul>);
+   });
 
    return (
-      <ul className="post-list list-group">
+      <ListGroup className="post-list">
          {element}
-      </ul>
-   )
+      </ListGroup>
+   );
 }
 export default PostList;

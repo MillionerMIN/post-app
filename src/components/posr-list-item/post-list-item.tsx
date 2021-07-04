@@ -1,18 +1,19 @@
 import React, { Component } from "react";
+
 import "./post-list-item.css";
 
 type PropsListItemType = {
    label: string
    important: boolean
+   onDelete: () => void
 }
 
-type StateType = {
+type PostListStateType = {
    important: boolean
    like: boolean
 }
 
-
-export default class PostListItem extends Component<PropsListItemType, StateType> {
+export default class PostListItem extends Component<PropsListItemType, PostListStateType> {
    constructor(props: PropsListItemType) {
       super(props)
       this.state = {
@@ -23,20 +24,20 @@ export default class PostListItem extends Component<PropsListItemType, StateType
       this.onLike = this.onLike.bind(this);
    }
 
-   onImportant() {
-      this.setState((prevState, props) => ({
-         important: !prevState.important
+   onImportant(): void {
+      this.setState((state) => ({
+         important: !state.important
       }))
    }
 
-   onLike() {
-      this.setState((prevState, props) => ({
-         like: !prevState.like
+   onLike(): void {
+      this.setState((state) => ({
+         like: !state.like
       }))
    }
 
    render() {
-      const { label } = this.props;
+      const { label, onDelete } = this.props;
       const { important, like } = this.state;
       let classNames = "app-list-item d-flex justify-content-between";
 
@@ -55,10 +56,12 @@ export default class PostListItem extends Component<PropsListItemType, StateType
                <button type="button" onClick={this.onImportant} className="btn-star btn-sm">
                   <i className="fas fa-star"></i>
                </button>
-               <button type="button" className="btn-trash btn-sm">
+               <button type="button"
+                  className="btn-trash btn-sm"
+                  onClick={onDelete}>
                   <i className="fas fa-trash-alt"></i>
                </button>
-                  <i className="fas fa-heart"></i>
+               <i className="fas fa-heart"></i>
             </div>
          </li>
       );
