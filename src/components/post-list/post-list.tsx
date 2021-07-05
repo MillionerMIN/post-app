@@ -1,6 +1,6 @@
 import React from "react";
 import { DataType } from "../app/app";
-import PostListItem from "../posr-list-item/post-list-item";
+import { PostListItem } from "../posr-list-item/post-list-item";
 
 import { ListGroup } from 'reactstrap';
 import "./post-list.css";
@@ -8,6 +8,8 @@ import "./post-list.css";
 export type PostListType = {
    props: Array<DataType>
    onDelete: (id: number) => void
+   onToggleImportant: (id: number) => void
+   onToggleLike: (id: number) => void
 }
 
 function PostList(props: PostListType) {
@@ -16,9 +18,10 @@ function PostList(props: PostListType) {
       return (<ul key={id} className="list-group-item">
          <PostListItem
             {...itemProps}
-            onDelete={() => {
-               props.onDelete(id);
-            }} />
+            onDelete={() => { props.onDelete(id); }}
+            onToggleImportant={() => { props.onToggleImportant(id) }}
+            onToggleLike={() => { props.onToggleLike(id) }}
+         />
       </ul>);
    });
 
